@@ -1,0 +1,9 @@
+<template>
+    <h3>{header}</h3>
+    <lightning-button label="Change Header text" onclick={handleIsOpen}></lightning-button>
+    <template lwc:if={isOpen}>
+        <lightning-input label="Input the text for your header" type="text" lwc:ref="input"></lightning-input>
+        <lightning-button label="Click here to change" onclick={handleHeaderChange}></lightning-button>
+    </template>
+    
+</template>

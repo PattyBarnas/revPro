@@ -1,0 +1,24 @@
+<template>
+    <lightning-card title="Contact Information">
+        <!-- Display contact data only if available -->
+        <template if:true={isDataAvailable}>
+            <div class="slds-box slds-box_xx-small slds-m-around_medium">
+                <p><strong>Name:</strong> {contact.Name}</p>
+                <p><strong>Phone:</strong> {contact.Phone}</p>
+                <p><strong>Department:</strong> {contact.Department}</p>
+            </div>
+        </template>
+        
+        <!-- Handle errors gracefully -->
+        <template if:true={error}>
+            <div class="slds-text-color_error">
+                <p>Error retrieving contact data. Please try again later.</p>
+            </div>
+        </template>
+        
+        <!-- Show loading state when contact data is being fetched -->
+        <template if:false={isDataAvailable}>
+            <p>Loading...</p>
+        </template>
+    </lightning-card>
+</template>

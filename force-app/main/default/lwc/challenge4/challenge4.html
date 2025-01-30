@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="My Favorite Bands">
+        <div class="slds-grid slds-wrap">
+            <template for:each={bands} for:item="band">
+                <c-band 
+                 key={band.name}
+                 class="slds-col slds-size_1-of-3" 
+                 band={band} 
+                 onshowdescription={handleShowDesc}></c-band>
+            </template>
+        </div>
+        <div>
+            <c-challenge-six description={selectedDesc}></c-challenge-six>
+        </div>
+      
+    </lightning-card>
+</template>

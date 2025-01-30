@@ -1,0 +1,10 @@
+<template>
+    <template for:each={data} for:item="item" for:index="index">
+        <li key={item}>{item}</li>
+    </template>
+
+    <lightning-input label="Write an input" type="text" lwc:ref="input"></lightning-input>
+    <lightning-button label="Add" onclick={handleUserInput}></lightning-button>
+
+    
+</template>
