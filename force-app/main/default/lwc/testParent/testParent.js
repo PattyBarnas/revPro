@@ -16,9 +16,17 @@ export default class TestParent extends LightningElement {
     @wire(getAllAccounts)
     accs;
 
-    wiredAccounts({errors, data}){
-      if(data){
-        this.accs = data;
+    wiredAccounts({errors, result}){
+      if(result.data){
+
+        this.data = result.data.map((el) => ({
+          ...el,
+          ...{
+            'Name' : el.Name,
+            'AnnualRevenue' : el.AnnualRevenue
+          }
+        }))
+      
         this.errors = undefined;
       } else if(error){
         this.errors = errors;
