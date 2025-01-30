@@ -11,8 +11,20 @@ export default class TestParent extends LightningElement {
   accName = ACCOUNT_NAME;
   accAnnualRevenue = ACCOUNT_ANNUAL_REVENUE;
 
+  error;
+
     @wire(getAllAccounts)
     accs;
+
+    wiredAccounts({errors, data}){
+      if(data){
+        this.accs = data;
+        this.errors = undefined;
+      } else if(error){
+        this.errors = errors;
+        this.accs = undefined;
+      }
+    }
 
     handleChildEvent(){
       refreshApex(this.accs);

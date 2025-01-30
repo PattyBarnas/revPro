@@ -4,13 +4,36 @@
     </template>
 
 
-      <lightning-record-edit-form 
-                    object-api-name={objectApiName} 
-                    onsuccess={handleSuccess} 
-                    onerror={handleError}>
-                    <lightning-input-field  field-name={accName}></lightning-input-field>
-                    <lightning-input-field  field-name={accAnnualRevenue}></lightning-input-field>
-                    <lightning-button type="submit" label="Save Changes"></lightning-button>
-        </lightning-record-edit-form> 
+<template lwc:if={accs.data}>
+    <div class="slds-grid slds-gutters slds-wrap">
+        <template for:each={accs.data} for:item="acc">
+            <lightning-card key={acc.id} class="slds-col slds-size_1-of-1 slds-medium-size_3-of12 slds-large-size_2-of-12 slds-m-vertical_medium">
+              <lightning-record-view-form 
+                object-api-name={objectApiName} 
+                onsuccess={handleSuccess} 
+                record-id={acc.id}>
+                <lightning-output-field field-name={acc.Name}></lightning-output-field>
+                <lightning-output-field field-name={acc.AnnualRevenue}></lightning-output-field>
+                <lightning-output-field field-name='lol'></lightning-output-field>
+            
+
+            </lightning-record-view-form>
+                <!-- <lightning-record-edit-form 
+                object-api-name={objectApiName} 
+                onsuccess={handleSuccess} 
+                onerror={handleError}>
+                <lightning-input-field  field-name={accName}></lightning-input-field>
+                <lightning-input-field  field-name={accAnnualRevenue}></lightning-input-field>
+                <lightning-button type="submit" label="Save Changes"></lightning-button>
+                </lightning-record-edit-form>  -->
+            </lightning-card>
+            <c-test-child 
+            key={acc.id} 
+            account={acc} 
+            ondeleteevent={handleChildEvent}>
+        </c-test-child>
+    </template>
+</div>
+</template>
              
 </template>

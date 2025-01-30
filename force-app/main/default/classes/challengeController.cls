@@ -6,11 +6,9 @@ public with sharing class challengeController {
     @AuraEnabled(cacheable=true)
     public static Contact getContact(){
         try {
-            Contact contact = [SELECT Id, Name, Phone, Department FROM Contact WHERE Department = 'Salesforce'];
-            System.debug('Contact Data: ' + contact);
+            Contact contact = [SELECT Id, Name, Phone, Department FROM Contact WHERE Department = 'Salesforce' LIMIT 1];
             return contact;
         } catch (Exception e) {
-            System.debug('Error: ' + e.getMessage());
             throw new AuraHandledException(e.getMessage());
         }
     }
@@ -23,7 +21,7 @@ public with sharing class challengeController {
     @AuraEnabled(cacheable=true)
     public static List<Account> getAllAccounts(){
         try {
-           return [SELECT Name, AnnualRevenue, ParentId FROM Account];
+           return [SELECT Name, AnnualRevenue, ParentId FROM Account LIMIT 50];
 
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
