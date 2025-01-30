@@ -1,17 +1,15 @@
 <template>
     
-                <!-- <lightning-record-edit-form 
+             <lightning-record-edit-form 
+                    object-api-name={objectApiName}
                     record-id={account.id} 
-                    object-api-name="Account" 
                     onsuccess={handleSuccess} 
                     onerror={handleError}>
-                    <lightning-input-field field-name="Name"></lightning-input-field>
-                    <lightning-input-field field-name="AnnualRevenue"></lightning-input-field>
-                    <lightning-button type="submit" label="Save Changes"></lightning-button>
+                    <lightning-input-field value={account.Name} field-name={accName}></lightning-input-field>
+                    <lightning-input-field value={account.AnnualRevenue} field-name={accAnnualRevenue}></lightning-input-field>
+                    <lightning-button type="submit" label="Save New Changes"></lightning-button>
                 </lightning-record-edit-form>
              
-            
-            
         <p>{account.Name} annual revenue {account.AnnualRevenue}</p>
-        <button onclick={handleDelete} data-recordid={account.Id}>DELETE</button> -->
+        <button onclick={handleDelete} data-recordid={account.Id}>DELETE</button>
 </template> 

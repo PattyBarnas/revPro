@@ -23,7 +23,7 @@ public with sharing class challengeController {
     @AuraEnabled(cacheable=true)
     public static List<Account> getAllAccounts(){
         try {
-           return [SELECT Name, AnnualRevenue FROM Account];
+           return [SELECT Name, AnnualRevenue, ParentId FROM Account];
 
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());

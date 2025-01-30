@@ -1,17 +1,16 @@
 <template>
-    <!-- <template for:each={accs.data} for:item="acc">
-        <c-test-child account={acc} key={acc.id} deleteevent={handleChildEvent} ></c-test-child>
+    <template for:each={accs.data} for:item="acc">
+        <c-test-child key={acc.id} account={acc} ondeleteevent={handleChildEvent} ></c-test-child>
     </template>
-    < Add an LDS form to create new Account records. The parent component should be refreshed so that the new record will appear. ​
--->
-     <!-- <lightning-record-edit-form 
-                   
-                    object-api-name="Account" 
+
+
+      <lightning-record-edit-form 
+                    object-api-name={objectApiName} 
                     onsuccess={handleSuccess} 
                     onerror={handleError}>
-                    <lightning-input-field field-name="Name"></lightning-input-field>
-                    <lightning-input-field field-name="AnnualRevenue"></lightning-input-field>
+                    <lightning-input-field  field-name={accName}></lightning-input-field>
+                    <lightning-input-field  field-name={accAnnualRevenue}></lightning-input-field>
                     <lightning-button type="submit" label="Save Changes"></lightning-button>
-                </lightning-record-edit-form> --> 
+        </lightning-record-edit-form> 
              
 </template>

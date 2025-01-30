@@ -1,13 +1,15 @@
 import { LightningElement, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex'
 import getAllAccounts from '@salesforce/apex/challengeController.getAllAccounts';
+import OBJECT_API_NAME from '@salesforce/schema/Account';
+import ACCOUNT_NAME from '@salesforce/schema/Account.Name';
+import ACCOUNT_ANNUAL_REVENUE from '@salesforce/schema/Account.AnnualRevenue';
 
 export default class TestParent extends LightningElement {
 
-// Modify the parent component used in challenge 8/9. ​
-// Add an LDS form to create new Account records. The parent component should be refreshed so that the new record will appear. ​
-//Update the child component so that it uses a record edit form so that we may view/edit each individual record. 
-    // objectApiName = Account;
+  objectApiName = OBJECT_API_NAME;
+  accName = ACCOUNT_NAME;
+  accAnnualRevenue = ACCOUNT_ANNUAL_REVENUE;
 
     @wire(getAllAccounts)
     accs;
