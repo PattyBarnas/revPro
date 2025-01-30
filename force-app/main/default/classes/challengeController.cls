@@ -3,18 +3,26 @@ public with sharing class challengeController {
 
     }
 
-    @AuraEnabled(cacheable=true)
-    public static Contact getContact(){
+
+    @AuraEnabled
+    public static Contact getContactRecord(){
         try {
-            Contact contact = [SELECT Id, Name, Phone, Department FROM Contact WHERE Department = 'Salesforce' LIMIT 1];
-            return contact;
+            Contact con = [SELECT Id,Name,Phone, Email FROM Contact];
+            return con;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
     }
 
-
-
+    @AuraEnabled(cacheable=true)
+    public static Contact getContact(String searchKey){
+        try {
+            Contact contact = [SELECT Id, Name, Phone, Department FROM Contact WHERE Name LIKE :('%' + searchKey + '%') LIMIT 1];
+            return contact;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 
 // Class Challenges
 

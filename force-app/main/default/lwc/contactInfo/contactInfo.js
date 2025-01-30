@@ -2,24 +2,27 @@ import { LightningElement, api, wire } from 'lwc';
 import getContact from '@salesforce/apex/challengeController.getContact';
 
 export default class ContactInfo extends LightningElement {
-    contact;
+    contacts;
     error;
-    
-    @wire(getContact)
-    wiredContact({ error, data }) {
-        if (data) {
-            console.log('Contact data:', data); 
-            this.contact = data;
+    userInput = ''
+
+
+    async handleLoad(e){
+        try {
+            // this.isLoading = true;
+            this.contacts = await getContact({searchKey: e.target.value});
             this.error = undefined;
-        } else if (error) {
-            alert(error)
-            console.error('Error fetching contact data:', error); 
-            this.error = error;
+
+        } catch (error) {
             this.contact = undefined;
-        }
+            this.error = error;
+            
+        } 
     }
+    
+ 
 
     get isDataAvailable() {
-        return this.contact !== undefined;
+        return this.contacts !== undefined;
     }
 }

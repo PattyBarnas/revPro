@@ -1,11 +1,12 @@
 <template>
     <lightning-card title="Contact Information">
      
+        <lightning-input onchange={handleLoad} label="Search contact" placeholder="search contacts...." value={userInput}></lightning-input>
         <template if:true={isDataAvailable}>
             <div class="slds-box slds-box_xx-small slds-m-around_medium">
-                <p><strong>Name:</strong> {contact.Name}</p>
-                <p><strong>Phone:</strong> {contact.Phone}</p>
-                <p><strong>Department:</strong> {contact.Department}</p>
+                <p><strong>Name:</strong> {contacts.Name}</p>
+                <p><strong>Phone:</strong> {contacts.Phone}</p>
+                <p><strong>Department:</strong> {contacts.Department}</p>
             </div>
         </template>
      
@@ -15,8 +16,6 @@
             </div>
         </template>
         
-        <template if:false={isDataAvailable}>
-            <p>Loading...</p>
-        </template>
+   
     </lightning-card>
 </template>

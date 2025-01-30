@@ -5,7 +5,7 @@ import queen from '@salesforce/resourceUrl/queen';
 import rhcp from '@salesforce/resourceUrl/rhcp';
 
 export default class Challenge4 extends LightningElement {
-    bands =[
+    bands = [
         {
             id: 1,
             name: 'Queen',
@@ -33,6 +33,8 @@ export default class Challenge4 extends LightningElement {
     ]
     selectedDesc = '';
     filteredBands = this.bands;
+
+
     handleShowDesc(event){
         this.selectedDesc = event.detail;
     }
