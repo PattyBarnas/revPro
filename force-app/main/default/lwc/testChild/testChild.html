@@ -5,8 +5,8 @@
                     record-id={account.id} 
                     onsuccess={handleSuccess} 
                     onerror={handleError}>
-                    <lightning-input-field value={account.Name} field-name={accName}></lightning-input-field>
-                    <lightning-input-field value={account.AnnualRevenue} field-name={accAnnualRevenue}></lightning-input-field>
+                    <lightning-output-field value={account.Name} field-name={accName}>{account.Name}</lightning-output-field>
+                    <lightning-output-field value={account.AnnualRevenue} field-name={accAnnualRevenue}>{account.AnnualRevenue}</lightning-output-field>
                     <lightning-button type="submit" label="Save New Changes"></lightning-button>
                 </lightning-record-edit-form>
              
