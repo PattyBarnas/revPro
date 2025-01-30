@@ -1,7 +1,8 @@
 <template>
     <lightning-card title="My Favorite Bands">
+        <lightning-input onchange={handleSearch} placeholder="Search band....."></lightning-input>
         <div class="slds-grid slds-wrap">
-            <template for:each={bands} for:item="band">
+            <template for:each={filteredBands} for:item="band">
                 <c-band 
                  key={band.name}
                  class="slds-col slds-size_1-of-3" 
