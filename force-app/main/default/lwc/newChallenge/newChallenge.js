@@ -1,8 +1,6 @@
 import { api, LightningElement, wire } from "lwc";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { refreshApex } from "@salesforce/apex";
 import getOpenCases from "@salesforce/apex/ChallengeController.getOpenCases";
-import updateCases from "@salesforce/apex/ChallengeController.updateCases";
 import createCase from "@salesforce/apex/ChallengeController.createCase";
 
 const COLUMNS = [
@@ -18,43 +16,32 @@ export default class NewChallenge extends LightningElement {
   draftValues = [];
   columns = COLUMNS;
 
+  wiredCasesResult;
+
   @wire(getOpenCases)
-  wiredCases({ data, error }) {
-    if (data) {
-      this.cases = data;
+  wiredCases(result) {
+    this.wiredCasesResult = result;
+    if (result.data) {
+      this.cases = result.data;
       this.error = undefined;
-    } else if (error) {
-      this.error = error;
+    } else if (result.error) {
+      this.error = result.error;
       this.cases = undefined;
     }
   }
 
-  async handleSave(event) {
-    const records = event.detail.draftValues.map((draft) => ({
-      fields: { ...draft }
-    }));
-    this.draftValues = [];
-
+  async createCase() {
     try {
-      await updateCases(records);
-      this.showToast("Success", "Cases updated successfully!", "success");
-      await refreshApex(this.cases);
+      await createCase({
+        status: this.template.querySelector('[data-id="status"]').value,
+        origin: this.template.querySelector('[data-id="origin"]').value
+      });
+
+      refreshApex(this.wiredCasesResult);
     } catch (error) {
-      this.showToast(
-        "Error",
-        "Error updating cases: " + error.body.message,
-        "error"
-      );
+      this.error = error;
     }
   }
 
-  async handleCreate() {
-    const newCase = await createCase("0012w00000kRdfg", "New", "Phone", "High");
-    this.cases = [...this.cases, newCase];
-    this.showToast("Success", "New case created successfully!", "success");
-  }
-
-  showToast(title, message, variant) {
-    this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
-  }
+  handleSave(event) {}
 }

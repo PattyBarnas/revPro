@@ -1,22 +1,32 @@
 <template>
-    <lightning-card title="Open Cases Dashboard" icon-name="standard:case">
-        <div class="slds-m-around_medium">
-            <template if:true={cases}>
-                <lightning-button label="Create New Case" onclick={handleCreate} class="slds-m-bottom_small"></lightning-button>
-                <lightning-datatable
-                    key-field="Id"
-                    data={cases}
-                    columns={columns}
-                    onsave={handleSave}
-                    draft-values={draftValues}>
-                </lightning-datatable>
-            </template>
+  <lightning-card title="Open Cases Dashboard" icon-name="standard:case">
+    <div class="slds-m-around_medium">
+      <template if:true={cases}>
+        <lightning-datatable
+          key-field="Id"
+          data={cases}
+          columns={columns}
+          onsave={handleSave}
+          hide-checkbox-column="true"
+          draft-values={draftValues}
+        >
+        </lightning-datatable>
+      </template>
 
-            <template if:true={error}>
-                <div class="slds-text-color_error">
-                    Error loading cases: {error.body.message}
-                </div>
-            </template>
+      <template if:true={cases}>
+        <lightning-input label="Origin" data-id="origin"></lightning-input>
+        <lightning-input label="Status" data-id="status"></lightning-input>
+        <lightning-button
+          label="Create"
+          onclick={createCase}
+        ></lightning-button>
+      </template>
+
+      <template if:true={error}>
+        <div class="slds-text-color_error">
+          Error loading cases: {error.body.message}
         </div>
-    </lightning-card>
+      </template>
+    </div>
+  </lightning-card>
 </template>
