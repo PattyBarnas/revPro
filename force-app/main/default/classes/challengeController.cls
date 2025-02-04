@@ -3,6 +3,36 @@ public with sharing class challengeController {
 
     }
 
+    @AuraEnabled(cacheable=true)
+    public static List<Case> getOpenCases() {
+        try {
+            return [SELECT Id, AccountId, Status, Origin, Priority FROM Case WHERE Status != 'Closed' LIMIT 15];
+        } catch (Exception e) {
+            throw new AuraHandledException('Error fetching open cases: ' + e.getMessage());
+        }
+    }
+    // Method to update cases
+    @AuraEnabled
+    public static void updateCases(List<Case> casesToUpdate) {
+        try {
+            update casesToUpdate;
+        } catch (Exception e) {
+            throw new AuraHandledException('Error updating cases: ' + e.getMessage());
+        }
+    }
+
+    // Method to create a new case
+    @AuraEnabled
+    public static Case createCase(String accountId, String status, String origin, String priority) {
+        try {
+            Case newCase = new Case(AccountId = accountId, Status = status, Origin = origin, Priority = priority);
+            insert newCase;
+            return newCase;
+        } catch (Exception e) {
+            throw new AuraHandledException('Error creating case: ' + e.getMessage());
+        }
+    }
+
 
     @AuraEnabled
     public static Contact getContactRecord(){
