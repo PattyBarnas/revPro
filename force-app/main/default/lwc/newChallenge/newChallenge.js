@@ -17,11 +17,11 @@ export default class NewChallenge extends LightningElement {
   draftValues = [];
   columns = COLUMNS;
 
-  wiredCasesResult;
+  wiredCases;
 
   @wire(getOpenCases)
   wiredCases(result) {
-    this.wiredCasesResult = result;
+    this.wiredCases = result;
     if (result.data) {
       this.cases = result.data;
       this.error = undefined;
@@ -31,28 +31,36 @@ export default class NewChallenge extends LightningElement {
     }
   }
 
-  async createCase() {
-    try {
-      await createCase({
-        status: this.template.querySelector('[data-id="status"]').value,
-        origin: this.template.querySelector('[data-id="origin"]').value
-      });
+  createNewCase() {
+    const status = this.template.querySelector('[data-id="status"]').value;
+    const origin = this.template.querySelector('[data-id="origin"]').value;
 
-      refreshApex(this.wiredCasesResult);
-    } catch (error) {
-      this.error = error;
+    if (!status || !origin) {
+      this.error = "Please fill in both the status and origin fields.";
+      return;
     }
+
+    createCase({ Status: status, Origin: origin })
+      .then(() => {
+        return refreshApex(this.wiredCases);
+      })
+      .catch((error) => {
+        console.error(error);
+        this.error = error.body ? error.body.message : error.message;
+      });
   }
 
   handleSave(event) {
-    let draftValues = this.template.querySelector(
-      "lightning-datatable"
-    ).draftValues;
+    const draftValues = event.detail.draftValues;
 
-    updateCases({ casesToUpdate: draftValues }).then((result) => {
-      this.template.querySelector("lightning-datatable").draftValues = [];
-
-      return refreshApex(this.wiredCasesResult);
-    });
+    updateCases({ casesToUpdate: draftValues })
+      .then(() => {
+        this.template.querySelector("lightning-datatable").draftValues = [];
+        return refreshApex(this.wiredCases);
+      })
+      .catch((error) => {
+        this.error = error;
+        console.error("Error updating cases:", error);
+      });
   }
 }

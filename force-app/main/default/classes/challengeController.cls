@@ -28,9 +28,9 @@ public with sharing class challengeController {
   }
 
   @AuraEnabled
-  public static void createCase(String status, String origin) {
+  public static void createCase(String Status, String Origin) {
     try {
-      Case newCase = new Case(Status = status, Origin = origin);
+      Case newCase = new Case(Status = Status, Origin = Origin);
       insert newCase;
     } catch (Exception e) {
       throw new AuraHandledException('Error creating case: ' + e.getMessage());

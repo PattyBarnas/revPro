@@ -1,0 +1,9 @@
+{
+  "apiName": "Contact",
+  "fields": {
+    "recordId": "K1K2K3M4M5M6M7M8M9",
+    "Name": "Patryk",
+    "Phone": "708",
+    "Department": "IT"
+  }
+}

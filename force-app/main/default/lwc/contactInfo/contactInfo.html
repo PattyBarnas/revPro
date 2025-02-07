@@ -1,21 +1,23 @@
 <template>
-    <lightning-card title="Contact Information">
-     
-        <lightning-input onchange={handleLoad} label="Search contact" placeholder="search contacts...." value={userInput}></lightning-input>
-        <template if:true={isDataAvailable}>
-            <div class="slds-box slds-box_xx-small slds-m-around_medium">
-                <p><strong>Name:</strong> {contacts.Name}</p>
-                <p><strong>Phone:</strong> {contacts.Phone}</p>
-                <p><strong>Department:</strong> {contacts.Department}</p>
-            </div>
-        </template>
-     
-        <template if:true={error}>
-            <div class="slds-text-color_error">
-                <p>Error retrieving contact data. Please try again later.</p>
-            </div>
-        </template>
-        
-   
-    </lightning-card>
+  <lightning-card title="Contact Information">
+    <lightning-input
+      onchange={handleLoad}
+      label="Search contact"
+      placeholder="search contacts...."
+      value={userInput}
+    ></lightning-input>
+    <template if:true={isDataAvailable}>
+      <div class="slds-box slds-box_xx-small slds-m-around_medium">
+        <p class="contact-name">{contacts.Name}</p>
+        <p class="contact-phone">{contacts.Phone}</p>
+        <p class="contact-department">{contacts.Department}</p>
+      </div>
+    </template>
+
+    <template if:true={error}>
+      <div class="slds-text-color_error">
+        <p>Error retrieving contact data. Please try again later.</p>
+      </div>
+    </template>
+  </lightning-card>
 </template>

@@ -1,0 +1,8 @@
+{
+  "apiName": "Contact",
+  "fields": {
+    "Name": "Patryk",
+    "Phone": "708",
+    "Department": "IT"
+  }
+}
